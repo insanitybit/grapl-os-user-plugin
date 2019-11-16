@@ -1,105 +1,61 @@
-from copy import deepcopy
-from typing import *
-
-from grapl_analyzerlib.nodes.comparators import IntCmp, _int_cmps, StrCmp
-from grapl_analyzerlib.nodes.types import PropertyT
-from grapl_analyzerlib.nodes.viewable import EdgeViewT, ForwardEdgeView, ReverseEdgeView
-from grapl_analyzerlib.prelude import DynamicNodeQuery, DynamicNodeView, ProcessQuery, ProcessView
-from pydgraph import DgraphClient
+from grapl_analyzerlib.schemas import ProcessSchema, NodeSchema
 
 
-class Auid(DynamicNodeQuery):
-    def __init__(self) -> None:
-        super(Auid, self).__init__("Auid", AuidView)
-
-    def with_auid(self, eq=IntCmp, gt=IntCmp, lt=IntCmp) -> "Auid":
-        self.set_int_property_filter("auid", _int_cmps("auid", eq=eq, gt=gt, lt=lt))
-        return self
-
-    def with_asset_id(self, eq=StrCmp, gt=StrCmp, lt=StrCmp) -> "Auid":
-        self.set_int_property_filter("asset_id", _int_cmps("asset_id", eq=eq, gt=gt, lt=lt))
-        return self
-
-    def with_auid_assumptions(self, auid_assumption_query: 'AssumedAuidQuery'):
-        if auid_assumption_query:
-            auid_assumption = deepcopy(auid_assumption_query)
-        else:
-            auid_assumption = ProcessQuery()
-        self.set_reverse_edge_filter("~auid_assumptions", self, "auid_assumptions")
-        auid_assumption.set_forward_edge_filter("auid_assumptions", auid_assumption)
-        return self
-
-    def query(
-            self,
-            dgraph_client: DgraphClient,
-            contains_node_key: Optional[str] = None,
-            first: Optional[int] = 1000,
-    ) -> List["AuidView"]:
-        return self._query(dgraph_client, contains_node_key, first)
-
-    def query_first(
-            self, dgraph_client: DgraphClient, contains_node_key: Optional[str] = None
-    ) -> Optional["AuidView"]:
-        return self._query_first(dgraph_client, contains_node_key)
-
-
-class AuidView(DynamicNodeView):
-    def __init__(
-            self,
-            dgraph_client: DgraphClient,
-            node_key: str,
-            uid: str,
-            node_type: str,
-            auid: Optional[int] = None,
-            asset_id: Optional[str] = None,
-            auid_assumptions: Optional[List['AssumedAuidView']] = None
-    ):
-        super(AuidView, self).__init__(
-            dgraph_client=dgraph_client, node_key=node_key, uid=uid, node_type=node_type
+class AuidSchema(NodeSchema):
+    def __init__(self):
+        super(AuidSchema, self).__init__()
+        (
+            self
+            .with_int_prop('auid')
         )
-        self.node_type = node_type
-        self.auid = auid
-        self.asset_id = asset_id
-        self.assumed_by = auid_assumptions
-
-    def get_auid(self) -> Optional[int]:
-        if self.auid is None:
-            self.auid = self.fetch_property('auid', int)
-
-        return self.auid
-
-    def get_assumed_by(self, filter: Optional[Union['AssumedAuidQuery', 'ProcessQuery']] = None) -> Optional[int]:
-        assert not filter, 'Filtering is not currently implemented'
-
-        if self.auid is None:
-            self.auid = self.fetch_property('auid', int)
-
-        return self.auid
 
     @staticmethod
-    def _get_property_types() -> Mapping[str, "PropertyT"]:
-        return {
-            "auid": int,
-        }
+    def self_type() -> str:
+        return 'Auid'
+
+
+class AuidAssumptionSchema(NodeSchema):
+    def __init__(self):
+        super(AuidAssumptionSchema, self).__init__()
+        (
+            self
+            .with_int_prop('assumed_timestamp')
+            .with_int_prop('assuming_process_id')
+            .with_forward_edge('assumed_auid', AuidSchema)
+            .with_forward_edge('assuming_process', ProcessSchema)
+        )
+
 
     @staticmethod
-    def _get_reverse_edge_types() -> Mapping[str, Tuple["EdgeViewT", str]]:
-        return {
-            '~assumed_auid': ([AssumedAuidView], 'auid_assumptions')
-        }
-
-    def _get_reverse_edges(self) -> 'Mapping[str,  ReverseEdgeView]':
-        r_edges = {
-            '~assumed_auid': ('auid_assumptions' , self.auid_assumptions)
-        }
-
-        return {r[0]: r[1] for r in r_edges.items() if r[1][0] is not None}
-
-    def _get_properties(self, fetch: bool = False) -> Mapping[str, Union[str, int]]:
-        props = {
-            "auid": self.auid,
-        }
-        return {p[0]: p[1] for p in props.items() if p[1] is not None}
+    def self_type() -> str:
+        return 'AuidAssumption'
 
 
-from grapl_os_user_analyzer_plugin.assumed_auid_node import AssumedAuidQuery, AssumedAuidView
+class UserIdSchema(NodeSchema):
+    def __init__(self):
+        super(UserIdSchema, self).__init__()
+        (
+            self
+                .with_int_prop('user_id')
+        )
+
+    @staticmethod
+    def self_type() -> str:
+        return 'UserId'
+
+
+class UserIdAssumptionSchema(NodeSchema):
+    def __init__(self):
+        super(UserIdAssumptionSchema, self).__init__()
+        (
+            self
+                .with_int_prop('assumed_timestamp')
+                .with_int_prop('assuming_process_id')
+                .with_forward_edge('assumed_user_id', UserIdSchema)
+                .with_forward_edge('assuming_process', ProcessSchema)
+        )
+
+
+    @staticmethod
+    def self_type() -> str:
+        return 'UserIdAssumption'
