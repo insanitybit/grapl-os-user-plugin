@@ -7,6 +7,23 @@
       <sourceFolder url="file://$MODULE_DIR$/grapl-os-user-generator-plugin/examples" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/grapl-os-user-generator-plugin/tests" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/grapl-os-user-generator-plugin/benches" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/grapl-os-user-generator-plugin/target/debug/build/grapl-graph-descriptions-ff75036a66d05851/out" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/grapl-os-user-generator-plugin/target/debug/build/log-c908d8c85c47fa69/out" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/grapl-os-user-generator-plugin/target/debug/build/byteorder-b544d3514df15ff7/out" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/grapl-os-user-generator-plugin/target/debug/build/libc-cb580adc9e35b2e0/out" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/grapl-os-user-generator-plugin/target/debug/build/ryu-caaed2ed0f4eae84/out" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/grapl-os-user-generator-plugin/target/debug/build/serde-df7a8a48fef7c7bc/out" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/grapl-os-user-generator-plugin/target/debug/build/prost-build-0d70b710f16c2b76/out" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/grapl-os-user-generator-plugin/target/debug/build/backtrace-sys-c574356c5e6d859d/out" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/grapl-os-user-generator-plugin/target/debug/build/proc-macro2-fbf2501a8198f8f1/out" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/grapl-os-user-generator-plugin/target/debug/build/derive_builder-5ead580e4470b111/out" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/grapl-os-user-generator-plugin/target/debug/build/syn-71050a3cdd723bcd/out" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/grapl-os-user-generator-plugin/target/debug/build/getrandom-aaab9f921481a189/out" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/grapl-os-user-generator-plugin/target/debug/build/proc-macro2-45955539dbae103d/out" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/grapl-os-user-generator-plugin/target/debug/build/syn-bdacbc604f7dffe5/out" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/grapl-os-user-generator-plugin/target/debug/build/rand-2eb19570969fd741/out" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/grapl-os-user-generator-plugin/target/debug/build/rand_pcg-7ac7fc6f01db2470/out" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/grapl-os-user-generator-plugin/target/debug/build/rand_chacha-b46a52d69501a9b2/out" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/grapl-os-user-generator-plugin/target" />
     </content>
     <orderEntry type="inheritedJdk" />

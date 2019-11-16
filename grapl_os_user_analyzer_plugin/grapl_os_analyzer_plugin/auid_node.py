@@ -1,10 +1,9 @@
-from copy import deepcopy
 from typing import *
 
 from grapl_analyzerlib.nodes.comparators import IntCmp, _int_cmps, StrCmp
 from grapl_analyzerlib.nodes.types import PropertyT
-from grapl_analyzerlib.nodes.viewable import EdgeViewT, ForwardEdgeView, ReverseEdgeView
-from grapl_analyzerlib.prelude import DynamicNodeQuery, DynamicNodeView, ProcessQuery, ProcessView
+from grapl_analyzerlib.nodes.viewable import EdgeViewT, ReverseEdgeView
+from grapl_analyzerlib.prelude import DynamicNodeQuery, DynamicNodeView, ProcessQuery
 from pydgraph import DgraphClient
 
 
@@ -21,10 +20,7 @@ class AuidQuery(DynamicNodeQuery):
         return self
 
     def with_auid_assumptions(self, auid_assumption_query: 'AssumedAuidQuery'):
-        if auid_assumption_query:
-            auid_assumption = deepcopy(auid_assumption_query)
-        else:
-            auid_assumption = ProcessQuery()
+        auid_assumption = auid_assumption_query or ProcessQuery()
         self.set_reverse_edge_filter("~assumed_auid", self, "auid_assumptions")
         auid_assumption.set_forward_edge_filter("assumed_auid", auid_assumption)
         return self

@@ -1,30 +1,26 @@
-from copy import deepcopy
 from typing import *
 
 from grapl_analyzerlib.nodes.comparators import IntCmp, _int_cmps, StrCmp
 from grapl_analyzerlib.nodes.types import PropertyT
-from grapl_analyzerlib.nodes.viewable import EdgeViewT, ForwardEdgeView, ReverseEdgeView
-from grapl_analyzerlib.prelude import DynamicNodeQuery, DynamicNodeView, ProcessQuery, ProcessView
+from grapl_analyzerlib.nodes.viewable import EdgeViewT, ReverseEdgeView
+from grapl_analyzerlib.prelude import DynamicNodeQuery, DynamicNodeView, ProcessQuery
 from pydgraph import DgraphClient
 
 
-class UserId(DynamicNodeQuery):
+class UserIdQuery(DynamicNodeQuery):
     def __init__(self) -> None:
-        super(UserId, self).__init__("UserId", UserIdView)
+        super(UserIdQuery, self).__init__("UserId", UserIdView)
 
-    def with_user_id(self, eq=IntCmp, gt=IntCmp, lt=IntCmp) -> "UserId":
+    def with_user_id(self, eq=IntCmp, gt=IntCmp, lt=IntCmp) -> "UserIdQuery":
         self.set_int_property_filter("user_id", _int_cmps("user_id", eq=eq, gt=gt, lt=lt))
         return self
 
-    def with_asset_id(self, eq=StrCmp, gt=StrCmp, lt=StrCmp) -> "UserId":
+    def with_asset_id(self, eq=StrCmp, gt=StrCmp, lt=StrCmp) -> "UserIdQuery":
         self.set_int_property_filter("asset_id", _int_cmps("asset_id", eq=eq, gt=gt, lt=lt))
         return self
 
     def with_user_id_assumptions(self, user_id_assumption_query: 'AssumedUserIdQuery'):
-        if user_id_assumption_query:
-            user_id_assumption = deepcopy(user_id_assumption_query)
-        else:
-            user_id_assumption = ProcessQuery()
+        user_id_assumption = user_id_assumption_query or ProcessQuery()
         self.set_reverse_edge_filter("~user_id_assumptions", self, "user_id_assumptions")
         user_id_assumption.set_forward_edge_filter("user_id_assumptions", user_id_assumption)
         return self
