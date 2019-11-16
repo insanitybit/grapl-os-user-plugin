@@ -69,9 +69,31 @@ class AssumedAuidView(DynamicNodeView):
             dgraph_client=dgraph_client, node_key=node_key, uid=uid, node_type=node_type
         )
         self.node_type = node_type
+        self.auid = auid
         self.assuming_process_id = assuming_process_id
         self.assuming_process = assuming_process
         self.assumed_auid = assumed_auid
+
+    def get_auid(self) -> Optional[int]:
+        if not self.auid:
+            self.auid = self.fetch_property('auid', int)
+        return self.auid
+
+    def get_assuming_process_id(self) -> Optional[int]:
+        if not self.assuming_process_id:
+            self.assuming_process_id = self.fetch_property('assuming_process_id', int)
+        return self.assuming_process_id
+
+    def get_assuming_process(self) -> Optional[int]:
+        if not self.assuming_process:
+            self.assuming_process = self.fetch_edge('assuming_process', ProcessView)
+        return self.assuming_process
+
+    def get_assumed_auid(self) -> Optional[int]:
+        if not self.assumed_auid:
+            self.assumed_auid = self.fetch_edge('assumed_auid', AssumedAuidView)
+        return self.assumed_auid
+
 
     @staticmethod
     def _get_property_types() -> Mapping[str, "PropertyT"]:
