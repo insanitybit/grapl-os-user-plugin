@@ -3,7 +3,7 @@ use grapl_graph_descriptions::graph_description::{Static, IdStrategy};
 
 use derive_dynamic_node::{DynamicNode as GraplNode};
 
-pub const ASSUMED_AUID: &'static str = "assumed_user_id";
+pub const ASSUMED_USER_ID: &'static str = "assumed_user_id";
 pub const ASSUMING_PROCESS: &'static str = "assuming_process";
 
 #[derive(Clone, GraplNode)]
