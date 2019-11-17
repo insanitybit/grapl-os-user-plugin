@@ -25,6 +25,7 @@
       <sourceFolder url="file://$MODULE_DIR$/grapl-os-user-generator-plugin/target/debug/build/rand_pcg-7ac7fc6f01db2470/out" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/grapl-os-user-generator-plugin/target/debug/build/rand_chacha-b46a52d69501a9b2/out" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/grapl-os-user-generator-plugin/target" />
+      <excludeFolder url="file://$MODULE_DIR$/venv" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
