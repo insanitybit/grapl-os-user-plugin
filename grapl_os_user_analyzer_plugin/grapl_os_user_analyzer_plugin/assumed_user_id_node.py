@@ -116,4 +116,4 @@ class AssumedUserIdView(DynamicNodeView):
         props = {"user_id": self.src_pid, "assumed_process_id": self.dst_pid}
         return {p[0]: p[1] for p in props.items() if p[1] is not None}
 
-from grapl_os_user_analyzer_plugin.grapl_os_user_analyzer_plugin.user_id_node import UserIdQuery
+from grapl_os_user_analyzer_plugin.user_id_node import UserIdQuery

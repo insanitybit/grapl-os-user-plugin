@@ -4,7 +4,6 @@ from grapl_analyzerlib.nodes.comparators import IntCmp, _int_cmps
 from grapl_analyzerlib.nodes.types import PropertyT
 from grapl_analyzerlib.nodes.viewable import EdgeViewT, ForwardEdgeView
 from grapl_analyzerlib.prelude import DynamicNodeQuery, DynamicNodeView, ProcessQuery, ProcessView
-from grapl_os_user_analyzer_plugin.auid import AuidQuery
 from pydgraph import DgraphClient
 
 
@@ -126,3 +125,4 @@ class AssumedAuidView(DynamicNodeView):
         return {p[0]: p[1] for p in props.items() if p[1] is not None}
 
 
+from grapl_os_user_analyzer_plugin.auid import AuidQuery
