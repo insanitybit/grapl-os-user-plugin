@@ -1,8 +1,8 @@
 from setuptools import setup, find_packages
 
 setup(
-    name="grapl_os_user_plugin",
-    version="0.1.254",
+    name="grapl_os_user_analyzer_plugin",
+    version="0.1.0",
     description="OS User Plugin for Grapl Analyzers",
     url="https://github.com/insanitybit/grapl-os-user-plugin/",
     author="insanitybit",
