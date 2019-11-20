@@ -123,7 +123,7 @@ dependencies = [
 
 [[package]]
 name = "derive-dynamic-node"
-version = "0.1.6"
+version = "0.1.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 dependencies = [
  "grapl-graph-descriptions 0.1.8 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -250,7 +250,7 @@ dependencies = [
 name = "grapl-os-user-generator-plugin"
 version = "0.1.1"
 dependencies = [
- "derive-dynamic-node 0.1.6 (registry+https://github.com/rust-lang/crates.io-index)",
+ "derive-dynamic-node 0.1.7 (registry+https://github.com/rust-lang/crates.io-index)",
  "grapl-graph-descriptions 0.1.8 (registry+https://github.com/rust-lang/crates.io-index)",
  "uuid 0.7.4 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
@@ -837,7 +837,7 @@ dependencies = [
 "checksum darling 0.9.0 (registry+https://github.com/rust-lang/crates.io-index)" = "fcfbcb0c5961907597a7d1148e3af036268f2b773886b8bb3eeb1e1281d3d3d6"
 "checksum darling_core 0.9.0 (registry+https://github.com/rust-lang/crates.io-index)" = "6afc018370c3bff3eb51f89256a6bdb18b4fdcda72d577982a14954a7a0b402c"
 "checksum darling_macro 0.9.0 (registry+https://github.com/rust-lang/crates.io-index)" = "c6d8dac1c6f1d29a41c4712b4400f878cb4fcc4c7628f298dd75038e024998d1"
-"checksum derive-dynamic-node 0.1.6 (registry+https://github.com/rust-lang/crates.io-index)" = "ff4090e71b73440f42a97b9210d775ad997dc31dab5f066ef646eb8ff4296654"
+"checksum derive-dynamic-node 0.1.7 (registry+https://github.com/rust-lang/crates.io-index)" = "9667034c110a1e31b6b84d5e84224cbe027505ba0e69352b0390a9820a128fcf"
 "checksum derive_builder 0.7.2 (registry+https://github.com/rust-lang/crates.io-index)" = "3ac53fa6a3cda160df823a9346442525dcaf1e171999a1cf23e67067e4fd64d4"
 "checksum derive_builder_core 0.5.0 (registry+https://github.com/rust-lang/crates.io-index)" = "0288a23da9333c246bb18c143426074a6ae96747995c5819d2947b64cd942b37"
 "checksum derive_more 0.10.0 (registry+https://github.com/rust-lang/crates.io-index)" = "15aae1b9eaec2588e5d39a325b548d21144a9e1d0242d290d54cb7b97f3edda1"

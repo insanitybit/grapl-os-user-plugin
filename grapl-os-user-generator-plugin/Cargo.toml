@@ -1,6 +1,6 @@
 [package]
 name = "grapl-os-user-generator-plugin"
-version = "0.1.1"
+version = "0.1.2"
 authors = ["Insanitybit <insanitybit@gmail.com>"]
 edition = "2018"
 description = "A plugin for Grapl, providing operating system user constructs"
