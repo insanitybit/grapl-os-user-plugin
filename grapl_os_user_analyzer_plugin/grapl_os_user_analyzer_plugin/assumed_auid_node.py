@@ -125,4 +125,4 @@ class AuidAssumptionView(DynamicNodeView):
         return {p[0]: p[1] for p in props.items() if p[1] is not None}
 
 
-from grapl_os_user_analyzer_plugin.auid_node import AuidQuery, AuidViewgrapl
+from grapl_os_user_analyzer_plugin.auid_node import AuidQuery, AuidView
