@@ -7,25 +7,25 @@ from grapl_analyzerlib.prelude import DynamicNodeQuery, DynamicNodeView, Process
 from pydgraph import DgraphClient
 
 
-class AssumedAuidQuery(DynamicNodeQuery):
+class AuidAssumptionQuery(DynamicNodeQuery):
     def __init__(self) -> None:
-        super(AssumedAuidQuery, self).__init__("AssumedAssumedAuid", AssumedAuidView)
+        super(AuidAssumptionQuery, self).__init__("AuidAssumption", AuidAssumptionView)
 
-    def with_assumed_timestamp(self, eq=IntCmp, gt=IntCmp, lt=IntCmp) -> "AssumedAuidQuery":
+    def with_assumed_timestamp(self, eq=IntCmp, gt=IntCmp, lt=IntCmp) -> "AuidAssumptionQuery":
         self.set_int_property_filter("assumed_timestamp", _int_cmps("assumed_timestamp", eq=eq, gt=gt, lt=lt))
         return self
 
-    def with_assuming_process_id(self, eq=IntCmp, gt=IntCmp, lt=IntCmp) -> "AssumedAuidQuery":
+    def with_assuming_process_id(self, eq=IntCmp, gt=IntCmp, lt=IntCmp) -> "AuidAssumptionQuery":
         self.set_int_property_filter("assuming_process_id", _int_cmps("assuming_process_id", eq=eq, gt=gt, lt=lt))
         return self
 
-    def with_auid(self, eq=IntCmp, gt=IntCmp, lt=IntCmp) -> "AssumedAuidQuery":
+    def with_auid(self, eq=IntCmp, gt=IntCmp, lt=IntCmp) -> "AuidAssumptionQuery":
         self.set_int_property_filter("auid", _int_cmps("auid", eq=eq, gt=gt, lt=lt))
         return self
 
     def with_assumed_auid(
             self, assumed_auid_query: "Optional[AuidQuery]" = None
-    ) -> "AssumedAuidQuery":
+    ) -> "AuidAssumptionQuery":
         assumed_auid = assumed_auid_query or AuidQuery()
         self.set_forward_edge_filter("assumed_auid", assumed_auid)
         assumed_auid.set_reverse_edge_filter("~assumed_auid", self, "assumed_auid")
@@ -33,7 +33,7 @@ class AssumedAuidQuery(DynamicNodeQuery):
 
     def with_assuming_process(
             self, assuming_process_query: "Optional[ProcessQuery]" = None
-    ) -> "AssumedAuidQuery":
+    ) -> "AuidAssumptionQuery":
         assuming_process = assuming_process_query or ProcessQuery()
         self.set_forward_edge_filter("assuming_process", assuming_process)
         assuming_process.set_reverse_edge_filter("~assuming_process", self, "assuming_process")
@@ -44,16 +44,16 @@ class AssumedAuidQuery(DynamicNodeQuery):
             dgraph_client: DgraphClient,
             contains_node_key: Optional[str] = None,
             first: Optional[int] = 1000,
-    ) -> List["AssumedAuidView"]:
+    ) -> List["AuidAssumptionView"]:
         return self._query(dgraph_client, contains_node_key, first)
 
     def query_first(
             self, dgraph_client: DgraphClient, contains_node_key: Optional[str] = None
-    ) -> Optional["AssumedAuidView"]:
+    ) -> Optional["AuidAssumptionView"]:
         return self._query_first(dgraph_client, contains_node_key)
 
 
-class AssumedAuidView(DynamicNodeView):
+class AuidAssumptionView(DynamicNodeView):
     def __init__(
             self,
             dgraph_client: DgraphClient,
@@ -65,7 +65,7 @@ class AssumedAuidView(DynamicNodeView):
             assuming_process: Optional[ProcessQuery] = None,
             assumed_auid: Optional['AuidView'] = None,
     ):
-        super(AssumedAuidView, self).__init__(
+        super(AuidAssumptionView, self).__init__(
             dgraph_client=dgraph_client, node_key=node_key, uid=uid, node_type=node_type
         )
         self.node_type = node_type
@@ -91,7 +91,7 @@ class AssumedAuidView(DynamicNodeView):
 
     def get_assumed_auid(self) -> Optional[int]:
         if not self.assumed_auid:
-            self.assumed_auid = self.fetch_edge('assumed_auid', AssumedAuidView)
+            self.assumed_auid = self.fetch_edge('assumed_auid', AuidAssumptionView)
         return self.assumed_auid
 
 
@@ -125,4 +125,4 @@ class AssumedAuidView(DynamicNodeView):
         return {p[0]: p[1] for p in props.items() if p[1] is not None}
 
 
-from grapl_os_user_analyzer_plugin.auid_node import AuidQuery
+from grapl_os_user_analyzer_plugin.auid_node import AuidQuery, AuidViewgrapl

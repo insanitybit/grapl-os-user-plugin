@@ -7,25 +7,25 @@ from grapl_analyzerlib.prelude import DynamicNodeQuery, DynamicNodeView, Process
 from pydgraph import DgraphClient
 
 
-class AssumedUserIdQuery(DynamicNodeQuery):
+class UserIdAssumptionQuery(DynamicNodeQuery):
     def __init__(self) -> None:
-        super(AssumedUserIdQuery, self).__init__("AssumedAssumedUserId", AssumedUserIdView)
+        super(UserIdAssumptionQuery, self).__init__("UserIdAsusmption", UserIdAssumptionView)
 
-    def with_assumed_timestamp(self, eq=IntCmp, gt=IntCmp, lt=IntCmp) -> "AssumedUserIdQuery":
+    def with_assumed_timestamp(self, eq=IntCmp, gt=IntCmp, lt=IntCmp) -> "UserIdAssumptionQuery":
         self.set_int_property_filter("assumed_timestamp", _int_cmps("assumed_timestamp", eq=eq, gt=gt, lt=lt))
         return self
 
-    def with_assuming_process_id(self, eq=IntCmp, gt=IntCmp, lt=IntCmp) -> "AssumedUserIdQuery":
+    def with_assuming_process_id(self, eq=IntCmp, gt=IntCmp, lt=IntCmp) -> "UserIdAssumptionQuery":
         self.set_int_property_filter("assuming_process_id", _int_cmps("assuming_process_id", eq=eq, gt=gt, lt=lt))
         return self
 
-    def with_user_id(self, eq=IntCmp, gt=IntCmp, lt=IntCmp) -> "AssumedUserIdQuery":
+    def with_user_id(self, eq=IntCmp, gt=IntCmp, lt=IntCmp) -> "UserIdAssumptionQuery":
         self.set_int_property_filter("user_id", _int_cmps("user_id", eq=eq, gt=gt, lt=lt))
         return self
 
     def with_assumed_user_id(
             self, used_id_query: "Optional[UserIdQuery]" = None
-    ) -> "AssumedUserIdQuery":
+    ) -> "UserIdAssumptionQuery":
         assuming_process = used_id_query or ProcessQuery()
         self.set_forward_edge_filter("assumed_user_id", assuming_process)
         assuming_process.set_reverse_edge_filter("~assumed_user_id", self, "assumed_user_id")
@@ -33,7 +33,7 @@ class AssumedUserIdQuery(DynamicNodeQuery):
 
     def with_assuming_process(
             self, assuming_process_query: "Optional[ProcessQuery]" = None
-    ) -> "AssumedUserIdQuery":
+    ) -> "UserIdAssumptionQuery":
         assuming_process = assuming_process_query or ProcessQuery()
         self.set_forward_edge_filter("assuming_process", assuming_process)
         assuming_process.set_reverse_edge_filter("~assuming_process", self, "assuming_process")
@@ -44,16 +44,16 @@ class AssumedUserIdQuery(DynamicNodeQuery):
             dgraph_client: DgraphClient,
             contains_node_key: Optional[str] = None,
             first: Optional[int] = 1000,
-    ) -> List["AssumedUserIdView"]:
+    ) -> List["UserIdAssumptionView"]:
         return self._query(dgraph_client, contains_node_key, first)
 
     def query_first(
             self, dgraph_client: DgraphClient, contains_node_key: Optional[str] = None
-    ) -> Optional["AssumedUserIdView"]:
+    ) -> Optional["UserIdAssumptionView"]:
         return self._query_first(dgraph_client, contains_node_key)
 
 
-class AssumedUserIdView(DynamicNodeView):
+class UserIdAssumptionView(DynamicNodeView):
     def __init__(
             self,
             dgraph_client: DgraphClient,
@@ -65,7 +65,7 @@ class AssumedUserIdView(DynamicNodeView):
             assuming_process: Optional[ProcessView] = None,
             assumed_user_id: Optional[ProcessView] = None,
     ):
-        super(AssumedUserIdView, self).__init__(
+        super(UserIdAssumptionView, self).__init__(
             dgraph_client=dgraph_client, node_key=node_key, uid=uid, node_type=node_type
         )
         self.node_type = node_type
@@ -91,7 +91,7 @@ class AssumedUserIdView(DynamicNodeView):
 
     def get_assumed_user_id(self) -> Optional[int]:
         if not self.assumed_user_id:
-            self.assumed_user_id = self.fetch_edge('assumed_user_id', AssumedUserIdView)
+            self.assumed_user_id = self.fetch_edge('assumed_user_id', UserIdAssumptionView)
         return self.assumed_user_id
 
     @staticmethod
