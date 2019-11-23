@@ -9,7 +9,7 @@ from pydgraph import DgraphClient
 
 class UserIdAssumptionQuery(DynamicNodeQuery):
     def __init__(self) -> None:
-        super(UserIdAssumptionQuery, self).__init__("UserIdAsusmption", UserIdAssumptionView)
+        super(UserIdAssumptionQuery, self).__init__("UserIdAssumption", UserIdAssumptionView)
 
     def with_assumed_timestamp(self, eq=IntCmp, gt=IntCmp, lt=IntCmp) -> "UserIdAssumptionQuery":
         self.set_int_property_filter("assumed_timestamp", _int_cmps("assumed_timestamp", eq=eq, gt=gt, lt=lt))
