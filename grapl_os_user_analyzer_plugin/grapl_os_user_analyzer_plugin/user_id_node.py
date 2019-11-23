@@ -19,7 +19,7 @@ class UserIdQuery(DynamicNodeQuery):
         self.set_int_property_filter("asset_id", _int_cmps("asset_id", eq=eq, gt=gt, lt=lt))
         return self
 
-    def with_user_id_assumptions(self, user_id_assumption_query: 'AssumedUserIdQuery'):
+    def with_user_id_assumptions(self, user_id_assumption_query: 'UserIdAssumptionQuery'):
         user_id_assumption = user_id_assumption_query or ProcessQuery()
         self.set_reverse_edge_filter("~user_id_assumptions", self, "user_id_assumptions")
         user_id_assumption.set_forward_edge_filter("user_id_assumptions", user_id_assumption)
@@ -48,7 +48,7 @@ class UserIdView(DynamicNodeView):
             node_type: str,
             user_id: Optional[int] = None,
             asset_id: Optional[str] = None,
-            user_id_assumptions: Optional[List['AssumedUserIdView']] = None
+            user_id_assumptions: Optional[List['UserIdAssumptionView']] = None
     ):
         super(UserIdView, self).__init__(
             dgraph_client=dgraph_client, node_key=node_key, uid=uid, node_type=node_type
@@ -64,7 +64,7 @@ class UserIdView(DynamicNodeView):
 
         return self.user_id
 
-    def get_assumed_by(self, filter: Optional[Union['AssumedUserIdQuery', 'ProcessQuery']] = None) -> Optional[int]:
+    def get_assumed_by(self, filter: Optional[Union['UserIdAssumptionQuery', 'ProcessQuery']] = None) -> Optional[int]:
         assert not filter, 'Filtering is not currently implemented'
 
         if self.user_id is None:
@@ -81,12 +81,12 @@ class UserIdView(DynamicNodeView):
     @staticmethod
     def _get_reverse_edge_types() -> Mapping[str, Tuple["EdgeViewT", str]]:
         return {
-            '~assumed_user_id': ([AssumedUserIdView], 'user_id_assumptions')
+            '~assumed_user_id': ([UserIdAssumptionView], 'user_id_assumptions')
         }
 
     def _get_reverse_edges(self) -> 'Mapping[str,  ReverseEdgeView]':
         r_edges = {
-            '~assumed_user_id': ('user_id_assumptions' , self.user_id_assumptions)
+            '~assumed_user_id': ('user_id_assumptions', self.user_id_assumptions)
         }
 
         return {r[0]: r[1] for r in r_edges.items() if r[1][0] is not None}
@@ -98,4 +98,4 @@ class UserIdView(DynamicNodeView):
         return {p[0]: p[1] for p in props.items() if p[1] is not None}
 
 
-from grapl_os_user_analyzer_plugin.assumed_user_id_node import AssumedUserIdQuery, AssumedUserIdView
+from grapl_os_user_analyzer_plugin.assumed_user_id_node import UserIdAssumptionQuery, UserIdAssumptionView

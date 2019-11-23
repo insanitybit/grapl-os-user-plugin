@@ -19,7 +19,7 @@ class AuidQuery(DynamicNodeQuery):
         self.set_int_property_filter("asset_id", _int_cmps("asset_id", eq=eq, gt=gt, lt=lt))
         return self
 
-    def with_auid_assumptions(self, auid_assumption_query: 'AssumedAuidQuery'):
+    def with_auid_assumptions(self, auid_assumption_query: 'AuidAssumptionQuery'):
         auid_assumption = auid_assumption_query or ProcessQuery()
         self.set_reverse_edge_filter("~assumed_auid", self, "auid_assumptions")
         auid_assumption.set_forward_edge_filter("assumed_auid", auid_assumption)
@@ -48,7 +48,7 @@ class AuidView(DynamicNodeView):
             node_type: str,
             auid: Optional[int] = None,
             asset_id: Optional[str] = None,
-            auid_assumptions: Optional[List['AssumedAuidView']] = None
+            auid_assumptions: Optional[List['AuidAssumptionView']] = None
     ):
         super(AuidView, self).__init__(
             dgraph_client=dgraph_client, node_key=node_key, uid=uid, node_type=node_type
@@ -64,7 +64,7 @@ class AuidView(DynamicNodeView):
 
         return self.auid
 
-    def get_auid_assumptions(self, filter: Optional[Union['AssumedAuidQuery', 'ProcessQuery']] = None) -> Optional[int]:
+    def get_auid_assumptions(self, filter: Optional[Union['AuidAssumptionQuery', 'ProcessQuery']] = None) -> Optional[int]:
         assert not filter, 'Filtering is not currently implemented'
 
         if self.auid is None:
@@ -81,7 +81,7 @@ class AuidView(DynamicNodeView):
     @staticmethod
     def _get_reverse_edge_types() -> Mapping[str, Tuple["EdgeViewT", str]]:
         return {
-            '~assumed_auid': ([AssumedAuidView], 'auid_assumptions')
+            '~assumed_auid': ([AuidAssumptionView], 'auid_assumptions')
         }
 
     def _get_reverse_edges(self) -> 'Mapping[str,  ReverseEdgeView]':
@@ -98,4 +98,4 @@ class AuidView(DynamicNodeView):
         return {p[0]: p[1] for p in props.items() if p[1] is not None}
 
 
-from grapl_os_user_analyzer_plugin.assumed_auid_node import AssumedAuidQuery, AssumedAuidView
+from grapl_os_user_analyzer_plugin.assumed_auid_node import AuidAssumptionQuery, AuidAssumptionView
