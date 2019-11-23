@@ -248,7 +248,7 @@ dependencies = [
 
 [[package]]
 name = "grapl-os-user-generator-plugin"
-version = "0.1.1"
+version = "0.1.2"
 dependencies = [
  "derive-dynamic-node 0.1.7 (registry+https://github.com/rust-lang/crates.io-index)",
  "grapl-graph-descriptions 0.1.8 (registry+https://github.com/rust-lang/crates.io-index)",
