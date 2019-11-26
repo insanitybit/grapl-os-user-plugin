@@ -7,7 +7,7 @@ from grapl_analyzerlib.nodes.viewable import EdgeViewT, ReverseEdgeView
 from grapl_analyzerlib.prelude import DynamicNodeQuery, DynamicNodeView, ProcessQuery
 from pydgraph import DgraphClient
 
-from grapl_os_user_analyzer_plugin.grapl_os_user_analyzer_plugin.assumed_user_id_node import (
+from grapl_os_user_analyzer_plugin.user_id_assumption_node import (
     UserIdAssumptionView,
 )
 
