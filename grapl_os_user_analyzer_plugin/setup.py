@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="grapl_os_user_analyzer_plugin",
-    version="0.1.12",
+    version="0.1.13",
     description="OS User Plugin for Grapl Analyzers",
     url="https://github.com/insanitybit/grapl-os-user-plugin/",
     author="insanitybit",
@@ -15,6 +15,9 @@ setup(
     ],
     zip_safe=False,
     packages=find_packages(),
+    package_data={
+        'grapl_os_user_analyzer_plugin': ["py.typed"],
+    },
     include_package_data=True,
     install_requires=["pydgraph"],
 )
